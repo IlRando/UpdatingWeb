@@ -1,0 +1,46 @@
+/* cards.css */
+.card-container {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-around;
+    padding: 20px; 
+}
+
+.card {
+    background-color: #1a1a1a; 
+    color: white;
+    border-radius: 10px; 
+    padding: 20px;
+    margin-bottom: 20px; 
+    width: 200px; 
+    text-align: center; 
+    transition: transform 0.3s ease; /* Add transition for hover effect */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Scale up slightly on hover */
+}
+
+.card img {
+    width: 100%; 
+    height: auto; 
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Player Styling - Apply to both alive and dead players */
+.player_alive, 
+.player_dead {
+    border: none;           /* Remove default border */
+    box-shadow: none;       /* Remove default box shadow */
+}
+
+.player_alive h3,
+.player_dead h3 {
+    color: white;          /* Text color within the card */
+}
+
+.player_alive img,
+.player_dead img {
+    border: none;           /* Remove image border */
+}
