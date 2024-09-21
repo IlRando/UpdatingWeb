@@ -192,5 +192,11 @@ playerCards.forEach(card => {
 // Close button functionality 
 const closeButton = contextWindow.querySelector('.close-button');
 closeButton.addEventListener('click', () => {
+    // Pause or mute the iframe before closing
+    const iframe = contextWindow.querySelector('iframe');
+    if (iframe) {
+        iframe.contentWindow.postMessage('{"event":"command","func":"pause","args":""}', '*'); // This sends a message to the iframe to pause
+    }
+
     contextWindow.style.display = 'none';
 });
