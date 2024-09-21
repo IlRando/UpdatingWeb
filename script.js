@@ -156,7 +156,7 @@ playerCards.forEach(card => {
     const iframe = card.querySelector('iframe'); 
 
     if (iframe) {
-      const iframeSrc = `https://clips.twitch.tv/embed?clip=OutstandingMistyTigerLitFam-4BN5O1CUQrhDLGES&parent=${window.location.hostname}&autoplay=true&muted=false`;
+        const iframeSrc = iframe.src;
 
         const contextContent = contextWindow.querySelector('.context-content');
         contextContent.innerHTML = `
@@ -192,11 +192,5 @@ playerCards.forEach(card => {
 // Close button functionality 
 const closeButton = contextWindow.querySelector('.close-button');
 closeButton.addEventListener('click', () => {
-    // Pause or mute the iframe before closing
-    const iframe = contextWindow.querySelector('iframe');
-    if (iframe) {
-        iframe.contentWindow.postMessage('{"event":"command","func":"pause","args":""}', '*'); // This sends a message to the iframe to pause
-    }
-
     contextWindow.style.display = 'none';
 });
