@@ -156,7 +156,7 @@ playerCards.forEach(card => {
     const iframe = card.querySelector('iframe'); 
 
     if (iframe) {
-        const iframeSrc = iframe.src;
+      const iframeSrc = `https://clips.twitch.tv/embed?clip=OutstandingMistyTigerLitFam-4BN5O1CUQrhDLGES&parent=${window.location.hostname}&autoplay=true&muted=false`;
 
         const contextContent = contextWindow.querySelector('.context-content');
         contextContent.innerHTML = `
