@@ -1,40 +1,148 @@
 // script.js
-
-// ... timer logic (unchanged) ... 
-const eventDate = new Date('October 18, 2024 00:00:00'); 
+// ... timer logic ...
+const eventDate = new Date('October 18, 2024 00:00:00');
 
 // Popup functionality
 const timerPopup = document.createElement('div');
 timerPopup.classList.add('popup');
 
-// ... (rest of your timer logic - unchanged) ...
+// Remove the original countdown element from the page
+const countdownElement = document.querySelector('.timer');
+if (countdownElement) {
+    countdownElement.parentNode.removeChild(countdownElement);
+}
 
-// Tabbed content functionality 
+// Update the timer within the popup 
+function updateCountdown() {
+    const now = new Date();
+    const distance = eventDate - now;
+
+    if (distance <= 0) {
+        // Update the popup 
+        timerPopup.innerHTML = `
+            <div class="timer">Event has started!</div>
+        `;
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Update or set the popup's content 
+    timerPopup.innerHTML = `
+        <div class="timer">${days}d ${hours}h ${minutes}m ${seconds}s</div>
+    `;
+}
+
+// Call updateCountdown once to initially populate the popup
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+document.body.appendChild(timerPopup);
+
+// Show the popup after a delay (e.g., 3 seconds)
+setTimeout(() => {
+    timerPopup.classList.add('show');
+}, 500);
+
+// Tabbed content functionality with smooth transition
 const tabs = document.querySelectorAll('.tab');
 const tabContent = document.querySelectorAll('.tab-panel');
 
-// ... (Your showTab function - unchanged) ...
+function showTab(index) {
+    // Hide all tabs
+    tabs.forEach((tab) => {
+        tab.classList.remove('active');
+    });
 
-// ... (Event listener for tabs - unchanged) ... 
+    // Show the selected tab
+    tabs[index].classList.add('active');
+
+    // Fade out all tab panels
+    tabContent.forEach((panel) => {
+        panel.style.opacity = '0';
+    });
+
+    // Fade in the selected tab panel
+    setTimeout(() => {
+        tabContent.forEach((panel) => {
+            panel.style.display = 'none';
+        });
+        tabContent[index].style.display = 'block';
+        setTimeout(() => {
+            tabContent[index].style.opacity = '1';
+        }, 50); // Keep the original smooth transition for tabs
+    }, 300); // This delay should match the transition duration in CSS
+}
+
+tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+        showTab(index);
+    });
+});
 
 // Show the first tab by default
-showTab(0); 
+showTab(0);
 
-// Add animation delays to all cards (updated selector)
-const cards = document.querySelectorAll('.card-container .card'); 
+// Add animation delays to all cards
+const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
     card.style.animationDelay = `${(index + 1) * 0.2}s`;
 });
 
-// Scroll button functionality (unchanged)
-// ... (your scroll button logic - unchanged) ... 
+// Scroll button functionality
+const scrollButton = document.getElementById('scrollButton');
+scrollButton.setAttribute('aria-label', 'Scroll to Top/Bottom');
+
+// Track the previous scroll position to determine scroll direction
+let prevScrollPos = window.pageYOffset;
+
+window.addEventListener('scroll', () => {
+    const currentScrollPos = window.pageYOffset;
+
+    if (currentScrollPos > 200) {
+        scrollButton.style.opacity = '0.7 !important';
+        scrollButton.style.transform = 'translateY(0) !important';
+    } else {
+        scrollButton.style.opacity = '0 !important';
+        scrollButton.style.transform = 'translateY(20px) !important';
+    }
+
+    // Update scroll direction and button appearance
+    if (currentScrollPos > prevScrollPos) {
+        scrollButton.classList.remove('scroll-to-top');
+        scrollButton.classList.add('scroll-to-bottom');
+    } else {
+        scrollButton.classList.remove('scroll-to-bottom');
+        scrollButton.classList.add('scroll-to-top');
+    }
+
+    prevScrollPos = currentScrollPos;
+});
+
+scrollButton.addEventListener('click', () => {
+    if (scrollButton.classList.contains('scroll-to-bottom')) {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    } else {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+});
 
 // Context window functionality
 const contextWindow = document.createElement('div');
 contextWindow.classList.add('context-window');
 contextWindow.innerHTML = `
-  <button class="close-button">×</button>
-  <div class="context-content"></div>
+    <button class="close-button">×</button>
+    <div class="context-content"></div>
 `;
 document.body.appendChild(contextWindow);
 
@@ -43,11 +151,45 @@ const playerCards = document.querySelectorAll('.card');
 
 playerCards.forEach(card => {
   card.addEventListener('click', (event) => {
-    // ... (rest of the event listener function - unchanged) ... 
+    event.stopPropagation();
+
+    const iframe = card.querySelector('iframe'); 
+
+    if (iframe) {
+        const iframeSrc = iframe.src;
+
+        const contextContent = contextWindow.querySelector('.context-content');
+        contextContent.innerHTML = `
+            <iframe src="${iframeSrc}" allowfullscreen></iframe>
+        `;
+
+        // Calculate context window position
+        const cardRect = card.getBoundingClientRect();
+        const windowWidth = window.innerWidth; 
+        const contextWindowWidth = 420; // Approximate width of the context window
+
+        // Determine if it should be on the left or right
+        if (cardRect.left + cardRect.width + contextWindowWidth + 10 > windowWidth) {
+          contextWindow.style.left = `${cardRect.left - contextWindowWidth - 10}px`;
+        } else {
+          contextWindow.style.left = `${cardRect.left + cardRect.width + 10}px`;
+        }
+        contextWindow.style.top = `${cardRect.top + window.scrollY + cardRect.height / 2}px`; 
+
+        // Show the context window before checking for scrolling
+        contextWindow.style.display = 'block';
+
+        // Scroll the card into view if necessary
+        card.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest', // Align to the nearest edge vertically
+          inline: 'nearest' // Align to the nearest edge horizontally 
+        });
+      }
   });
 });
 
-// Close button functionality (unchanged)
+// Close button functionality 
 const closeButton = contextWindow.querySelector('.close-button');
 closeButton.addEventListener('click', () => {
     contextWindow.style.display = 'none';

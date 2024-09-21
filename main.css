@@ -181,36 +181,38 @@ footer {
 /* Scroll button styling */
 #scrollButton {
     position: fixed;
-    bottom: 30px; 
-    right: 30px; 
-    background-color: #7E5D3F; 
-    color: white;
-    border: none;
-    padding: 12px; 
-    border-radius: 50%;
+    bottom: 30px;
+    right: 30px;
+    background-color: transparent; /* Transparent background */
+    border: 2px solid #007bff; /* Blue border */
+    color: #007bff; /* Blue arrow color */
+    border-radius: 50%; /* Circular shape */
+    width: 50px; /* Button size */
+    height: 50px;
     cursor: pointer;
-    font-size: 20px; 
+    font-size: 20px;
     z-index: 999;
-    opacity: 0.7;           
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease; /* Smooth transitions */ 
+    display: flex;
+    justify-content: center; /* Center the arrow vertically */
+    align-items: center; /* Center the arrow horizontally */
+  }
   
-#scrollButton:hover {
-    opacity: 1;               
-    transform: scale(1.1);    
-}
+  #scrollButton:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    color: #fff; /* White arrow on hover */
+    border-color: #fff; /* White border on hover */
+  }
   
-#scrollButton.scroll-to-top::before { 
-    content: "▲"; 
-}
+  #scrollButton.scroll-to-top::before {
+    content: "▲"; /* Up arrow */
+  }
   
-#scrollButton.scroll-to-bottom::before {
-    content: "▼";
-}
-  
-#scrollButton::before { 
-    content: "▼"; 
-}
+  #scrollButton.scroll-to-bottom::before {
+    content: "▼"; /* Down arrow */
+  }
 
 @media (max-width: 768px) {
     .header-content {
