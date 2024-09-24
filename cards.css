@@ -67,7 +67,6 @@
 .player_dead { 
   border: 4px solid #AA4A4A; /* Red border for dead */
 }
-
   
   .player_alive h3, .player_dead h3 {
     color: white;

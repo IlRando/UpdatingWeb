@@ -47,8 +47,10 @@ header nav a {
 }
 
 .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 10px 0;
     background-color: #000;
-    padding: 50px 0;
 }
 
 .hero-content {
@@ -59,6 +61,14 @@ header nav a {
 .hero h1 {
     font-size: 4em;
     margin-bottom: 10px;
+}
+
+.hero h1 img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    transform: scale(1.25);
 }
 
 .hero p {
@@ -157,7 +167,7 @@ footer {
 /* Timer Popup */
 .popup {
     position: fixed;
-    bottom: 20px;
+    bottom: 70px;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.7); 
@@ -206,6 +216,10 @@ footer {
     border-color: #fff; /* White border on hover */
   }
   
+  #scrollButton::before {
+    content: "▲";
+}
+
   #scrollButton.scroll-to-top::before {
     content: "▲"; /* Up arrow */
   }

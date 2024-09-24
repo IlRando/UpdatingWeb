@@ -98,12 +98,13 @@ const scrollButton = document.getElementById('scrollButton');
 scrollButton.setAttribute('aria-label', 'Scroll to Top/Bottom');
 
 // Track the previous scroll position to determine scroll direction
-let prevScrollPos = window.pageYOffset;
+let prevScrollPos = 0;
 
 window.addEventListener('scroll', () => {
     const currentScrollPos = window.pageYOffset;
+    const scrollHeight = document.body.scrollHeight - window.innerHeight;
 
-    if (currentScrollPos > 200) {
+    if (currentScrollPos > 200 && currentScrollPos < scrollHeight - 200) {
         scrollButton.style.opacity = '0.7 !important';
         scrollButton.style.transform = 'translateY(0) !important';
     } else {
@@ -115,7 +116,7 @@ window.addEventListener('scroll', () => {
     if (currentScrollPos > prevScrollPos) {
         scrollButton.classList.remove('scroll-to-top');
         scrollButton.classList.add('scroll-to-bottom');
-    } else {
+    } else if (currentScrollPos < prevScrollPos) {
         scrollButton.classList.remove('scroll-to-bottom');
         scrollButton.classList.add('scroll-to-top');
     }
@@ -199,4 +200,19 @@ closeButton.addEventListener('click', () => {
     }
 
     contextWindow.style.display = 'none';
+    
+    setTimeout(() => {
+        const currentScrollPos = window.pageYOffset;
+
+        // Actualizar la dirección del scroll y la apariencia del botón
+        if (currentScrollPos > prevScrollPos) { 
+            scrollButton.classList.remove('scroll-to-top');
+            scrollButton.classList.add('scroll-to-bottom');
+        } else if (currentScrollPos < prevScrollPos) { 
+            scrollButton.classList.remove('scroll-to-bottom');
+            scrollButton.classList.add('scroll-to-top');
+        }
+
+        window.dispatchEvent(new Event('scroll'));
+    }, 100);
 });
