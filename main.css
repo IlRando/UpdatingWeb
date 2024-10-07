@@ -149,13 +149,20 @@ header nav a {
     text-align: center;
 }
 
+/* Aquí comienza la animación */
 .tab-panel {
     display: none;
+    opacity: 0; 
+    transform: translateY(20px); 
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .tab-panel.active {
-    display: block;
+    display: block; 
+    opacity: 1; 
+    transform: translateY(0); 
 }
+/* Aquí termina la animación */
 
 footer {
     background-color: #000;

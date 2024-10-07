@@ -215,4 +215,25 @@ closeButton.addEventListener('click', () => {
 
         window.dispatchEvent(new Event('scroll'));
     }, 100);
+
+    const tabs = document.querySelectorAll('.tab');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remover las clases 'active' de todas las pestañas y paneles
+        tabs.forEach(t => t.classList.remove('active'));
+        tabPanels.forEach(panel => panel.classList.remove('active'));
+    
+        // Agregar la clase 'active' a la pestaña seleccionada
+        tab.classList.add('active');
+    
+        // Obtener el ID del panel correspondiente y mostrarlo
+        const targetPanelId = tab.getAttribute('data-target');
+        const targetPanel = document.getElementById(targetPanelId);
+        targetPanel.classList.add('active');
+      });
+    });    
+
 });
+
