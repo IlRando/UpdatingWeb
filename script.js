@@ -1,6 +1,6 @@
 // script.js
 // ... timer logic ...
-const eventDate = new Date('October 18, 2024 00:00:00');
+const eventDate = new Date('December 25, 2024 00:00:00');
 
 // Popup functionality
 const timerPopup = document.createElement('div');
