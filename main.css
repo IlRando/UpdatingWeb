@@ -228,32 +228,67 @@ footer {
     content: "▼"; /* Down arrow */
   }
 
+/* Media Query for smaller screens (e.g., tablets and mobile phones) */
 @media (max-width: 768px) {
+    /* Header */
     .header-content {
-        flex-direction: column; 
+        flex-direction: column; /* Stack header elements vertically */
+    }
+
+    .logo {
+        height: 60px; /* Reduce logo size */
+        margin-bottom: 10px;
     }
 
     header nav ul {
-        flex-direction: column; 
-        align-items: center; 
-        margin-top: 20px; 
+        flex-direction: column; /* Stack navigation items vertically */
+        align-items: center;
     }
 
     header nav li {
-        margin: 10px 0; 
+        margin: 10px 0; /* Adjust spacing between navigation items */
     }
 
+    /* Hero Section */
     .hero h1 {
-        font-size: 3em; 
+        font-size: 2.5em; /* Reduce heading size */
     }
 
+    .hero h1 img {
+        transform: scale(1); /* Remove scaling on the banner image */
+    }
+
+    .action-button {
+        padding: 12px 20px; /* Adjust button padding */
+        font-size: 0.9em;
+    }
+
+    /* Content Section */
     .tabs {
-        flex-direction: column; 
-        border-bottom: none; 
+        flex-direction: column; /* Stack tabs vertically */
+        border-bottom: none;
     }
 
     .tab {
-        border-bottom: 1px solid #ddd; 
-        margin-bottom: 10px; 
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
+        text-align: left; /* Align tab text to the left */
+    }
+
+    /* Card Container */
+    .card-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns for cards */
+    }
+}
+
+/* Media Query for even smaller screens (e.g., small phones) */
+@media (max-width: 480px) {
+    /* Further adjustments for smaller screens if needed */
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr; /* Single column layout for cards */
     }
 }
