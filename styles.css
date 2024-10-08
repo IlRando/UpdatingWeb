@@ -1,101 +1,49 @@
-/* Estilos generales */
-body {
-    font-family: sans-serif;
-    margin: 0;
-    color: #fff; /* Texto blanco */
-    background-color: #222; /* Fondo oscuro */
-}
+/* General Styles *
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Header */
-header {
-    background-image: url("imagen-banner.jpg"); /* Reemplaza con tu imagen */
-    background-size: cover;
-    background-position: center;
-    text-align: center;
-    padding: 100px 0;
-}
-
-nav {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-    padding: 10px 0;
-}
-
-nav .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    color: #fff;
-    font-size: 24px;
-    text-decoration: none;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-nav li {
-    margin-left: 20px;
-}
-
-nav a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.hero h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
-
-.button {
-    display: inline-block;
-    background-color: #007bff; /* Color de botón */
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-/* Sección Participantes */
-.participantes {
-    padding: 50px 0;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
+/* Players */
 .card {
-    background-color: #333;
+    background-color: #1e1e1e;
     padding: 20px;
     text-align: center;
     border-radius: 10px;
+    overflow: hidden; 
 }
 
-.card img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 50%;
-    margin-bottom: 10px;
+.player_alive,
+.player_dead { 
+  position: relative; /* positioning of the pseudoelement */
+  overflow: hidden; 
 }
+
+.player_alive::before,
+.player_dead::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background-color: white; 
+  transform: translateX(-100%); 
+}
+
+.player_alive:hover::before,
+.player_dead:hover::before {
+    animation: swipeAnimation 0.3s ease forwards; 
+} 
+
+@keyframes swipeAnimation {
+    from {
+      transform: translateX(-100%);  /*  What's outside of the card */
+    }
+    to {
+      transform: translateX(100%);  /*  Ends outside of the card */
+    }
+  }
 
 /* Footer */
 footer {
-    background-color: #111;
+    background-color: #0a0a0a;
     padding: 20px 0;
     text-align: center;
 }
