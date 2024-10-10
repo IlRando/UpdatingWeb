@@ -179,30 +179,6 @@ footer {
     padding: 20px 0;
 }
 
-/* Timer Popup */
-.popup {
-    position: fixed;
-    top: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.7); 
-    padding: 20px;
-    border-radius: 8px;
-    z-index: 1000; 
-    opacity: 0; 
-    transition: opacity 0.5s ease; 
-}
-
-.popup.show {
-    opacity: 1;
-}
-
-.popup .timer {
-    font-size: 3em; 
-    color: white;
-    text-shadow: 2px 2px black;
-}
-
 /* Scroll button styling */
 #scrollButton {
     position: fixed;
